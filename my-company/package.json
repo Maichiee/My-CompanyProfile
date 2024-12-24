@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rimraf .next out",
-    "vercel-build": "npm run clean && npm run build"
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@types/react-scroll": "^1.8.10",
