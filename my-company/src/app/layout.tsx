@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Oswald, Roboto } from "next/font/google";
+import { Oswald, Roboto, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,19 +16,21 @@ const roboto = Roboto({
   variable: '--font-roboto'
 });
 
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata: Metadata = {
-  title: "Company Profile",
-  description: "Welcome to my Company Profile",
+  title: "My Company",
+  description: "Professional web development services",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${oswald.variable} ${roboto.variable} w-full max-w-[1920px] mx-auto bg-white`}>
+      <body className={`${oswald.variable} ${roboto.variable} ${inter.className} w-full max-w-[1920px] mx-auto bg-white`}>
         <Header />
         {children}
         <Footer />

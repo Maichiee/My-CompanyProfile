@@ -1,5 +1,6 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -7,18 +8,16 @@ import { Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import heroImage from "./../../assets/images/hero2.jpg"
 
-export default function Header() {
+const Header = () => {
+  const [mounted, setMounted] = useState(false)
   const [navActive, setNavActive] = useState(false)
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
-  const toggleNav = () => {
-    setNavActive(!navActive)
-  }
-
   useEffect(() => {
+    setMounted(true)
     const handleResize = () => {
       if (window.innerWidth > 825) {
         setNavActive(false)
@@ -29,7 +28,14 @@ export default function Header() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const decorativeElements = Array(3).fill(null)
+  if (!mounted) {
+    return null
+  }
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  }
 
   return (
     <div className="main-container">
@@ -45,79 +51,54 @@ export default function Header() {
 
         <nav className={navActive ? 'nav-active' : ''}>
           <ul>
-            <motion.li
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a href="#aboutmes">About Me</a>
+            <motion.li whileHover={{ scale: 1.1 }}>
+              <a href="#about">About</a>
             </motion.li>
-            <motion.li
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a href="#portofolios">Portfolio</a>
+            <motion.li whileHover={{ scale: 1.1 }}>
+              <a href="#projects">Projects</a>
             </motion.li>
-            <motion.li
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a href="#skills">Skills</a>
-            </motion.li>
-            <motion.li
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.li whileHover={{ scale: 1.1 }}>
               <a href="#contact">Contact</a>
-            </motion.li>
-            <motion.li
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a href="#" target="_blank">
-                <button className="btn glow">RESUME</button>
-              </a>
             </motion.li>
           </ul>
         </nav>
 
-        <div className={`burger ${navActive ? 'toggle-burger' : ''}`} onClick={toggleNav}>
-          <div className="line-1"></div>
-          <div className="line-2"></div>
-          <div className="line-3"></div>
-        </div>
+        <button 
+          className="menu-toggle" 
+          onClick={() => setNavActive(!navActive)}
+          aria-label="Toggle menu"
+        >
+          <div className={navActive ? 'hamburger active' : 'hamburger'} />
+        </button>
       </motion.div>
 
-      <motion.section
-        id="hero"
-        ref={ref}
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 1 }}
-      >
-        <div className="hero-left">
+      <div className="hero-section" ref={ref}>
+        <div className="hero-content">
           <motion.h3
-            className="pre-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.5 }}
+            variants={fadeInUp}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ delay: 0.2 }}
           >
             My name is
           </motion.h3>
           <motion.h1
             className="hero-name gradient-text"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            variants={fadeInUp}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ delay: 0.4 }}
           >
             Imam <span>Harits</span>
           </motion.h1>
           <motion.p
             className="text-lg text-gray-600 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.6, duration: 0.5 }}
+            variants={fadeInUp}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ delay: 0.6 }}
           >
-            &ldquo;Hello! I am a web developer passionate about building responsive, intuitive, and scalable web applications. With experience in HTML, CSS, React. I&apos;m dedicated to delivering the best solutions for user needs.&rdquo;
+            A web developer passionate about building responsive, intuitive, and scalable web applications.
           </motion.p>
         </div>
         
@@ -125,44 +106,32 @@ export default function Header() {
           className="hero-right"
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
+          transition={{ delay: 0.8 }}
         >
           <div className="image-container">
-            {decorativeElements.map((_, index) => (
-              <motion.div
-                key={index}
-                className="decorative-circle"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: index * 0.4,
-                }}
-              />
-            ))}
             <motion.div
               className="sparkle-container"
-              animate={{
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
               <Sparkles className="sparkle-icon" />
             </motion.div>
-            <Image 
+            <Image
               src={heroImage}
-              alt="Professional portrait"
+              alt="Hero Image"
+              width={500}
+              height={500}
+              priority
               className="hero-image"
+              loading="eager"
             />
           </div>
         </motion.div>
-      </motion.section>
+      </div>
     </div>
   )
 }
+
+export default dynamic(() => Promise.resolve(Header), {
+  ssr: false
+})
