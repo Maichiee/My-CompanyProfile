@@ -3,17 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply font-roboto;
-  }
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-oswald font-bold uppercase;
+    font-family: var(--font-oswald);
+    @apply font-bold uppercase;
   }
 
   .h1 {
@@ -21,28 +18,30 @@
   }
 
   .h2 {
-    @apply text-[-36px];
+    @apply text-[36px];
   }
 
   .h3 {
-    @apply text-[-32px];
+    @apply text-[32px];
   }
 
   .h4 {
-    @apply text-[-26px];
+    @apply text-[26px];
   }
 
   .h5 {
-    @apply text-[-22px];
+    @apply text-[22px];
   }
 }
 
-.active {
-  @apply text-accent;
-}
+@layer components {
+  .active {
+    color: #d4000d;
+  }
 
-/* swiper pagination */
-.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullets,
-.swiper-horizontal.swiper-pagination-bullets .swiper-pagination-bullets {
-  @apply bg-accent;
+  /* swiper pagination */
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .swiper-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    background-color: #d4000d;
+  }
 }

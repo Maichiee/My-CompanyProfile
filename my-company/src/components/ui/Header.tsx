@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 import heroImage from "./../../assets/images/hero2.jpg"
 
 export default function Header() {
@@ -153,7 +154,7 @@ export default function Header() {
             >
               <Sparkles className="sparkle-icon" />
             </motion.div>
-            <img
+            <Image 
               src={heroImage}
               alt="Professional portrait"
               className="hero-image"
