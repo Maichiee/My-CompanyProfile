@@ -112,11 +112,12 @@ export default function Header() {
             Imam <span>Harits</span>
           </motion.h1>
           <motion.p
+            className="text-lg text-gray-600 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.5 }}
           >
-            "Hello! I am a web developer passionate about building responsive, intuitive, and scalable web applications. With experience in HTML, CSS, React. I'm dedicated to delivering the best solutions for user needs."
+            &ldquo;Hello! I am a web developer passionate about building responsive, intuitive, and scalable web applications. With experience in HTML, CSS, React. I&apos;m dedicated to delivering the best solutions for user needs.&rdquo;
           </motion.p>
         </div>
         
@@ -165,4 +166,3 @@ export default function Header() {
     </div>
   )
 }
-

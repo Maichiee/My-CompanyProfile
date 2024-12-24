@@ -57,7 +57,7 @@ export default function Testimonials() {
               transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
             >
               <div className="testimonial-content">
-                <p>"{testimonial.quote}"</p>
+                <p className="text-lg text-gray-600 mb-8">&ldquo;{testimonial.quote}&rdquo;</p>
               </div>
               <div className="testimonial-author">
                 <div>
